@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Mahasiswa</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .action-btn {
+        margin-right: 5px;
+      }
+      .search-container {
+        margin-bottom: 20px;
+      }
+      input[type='text'] {
+        padding: 8px;
+        width: 200px;
+      }
+      button {
+        padding: 8px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Daftar Mahasiswa</h1>
+    <div class="search-container">
+      <form action="/search-mahasiswa" method="GET">
+        <input type="text" name="nim" placeholder="Cari NIM..." value="<%= searchQuery %>" />
+        <button type="submit">Cari</button>
+      </form>
+    </div>
+    <a href="/add-mahasiswa">Tambah Mahasiswa Baru</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NIM</th>
+          <th>Nama</th>
+          <th>Alamat</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% mahasiswa.forEach(m => { %>
+        <tr>
+          <td><%= m.id %></td>
+          <td><%= m.nim %></td>
+          <td><%= m.nama %></td>
+          <td><%= m.alamat %></td>
+          <td>
+            <a href="/update-mahasiswa/<%= m.id %>" class="action-btn">Edit</a>
+            <a href="/delete-mahasiswa/<%= m.id %>" class="action-btn" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>
